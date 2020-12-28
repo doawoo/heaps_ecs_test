@@ -1,3 +1,5 @@
+import polygonal.ds.BitVector;
+import systems.BitmapDisplaySystem;
 import components.BitmapComponent;
 import h2d.Scene;
 import util.Logger;
@@ -15,10 +17,16 @@ class Main extends hxd.App {
 
         scene = new Scene();
 
-        world = new World([
+        world = new World(
+        [
             // Register components with the world here
             BitmapComponent,
-        ], "test-world", scene, this);
+        ], 
+        [
+            // Register systems with the world
+            BitmapDisplaySystem,
+        ],
+        "test-world", scene, this);
 
         world.init();
     }

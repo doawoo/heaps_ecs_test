@@ -10,11 +10,16 @@ class World {
     private var scene:Scene;
     private var app:hxd.App;
 
-    private var components:Array<Class<Component>>;
+    private var componentClasses:Array<Class<Component>>;
+    private var systemClasses:Array<Class<System>>;
 
-    public function new(components:Array<Class<Component>>, name:String, scene:Scene, app:hxd.App) {
+    private var systems:Array<System> = new Array<System>();
+    private var entity:Array<Entity> = new Array<Entity>();
+
+    public function new(components:Array<Class<Component>>, systems:Array<Class<System>>, name:String, scene:Scene, app:hxd.App) {
         this.name = name;
-        this.components = components;
+        this.componentClasses = components;
+        this.systemClasses = systems;
         this.scene = scene;
         this.app = app;
 
@@ -29,9 +34,16 @@ class World {
         }
         
         app.setScene(scene);
+
+        // Create all the systems
+        logger.debug("Creating world systems...");
+        for (sysClass in systemClasses) {
+            systems.push(Type.createInstance(sysClass, [this]));
+            logger.debug("Created system: " + Type.getClassName(sysClass));
+        }
     }
 
     public function getBitVectorLen():Int {
-        return components.length;
+        return componentClasses.length;
     }
 }

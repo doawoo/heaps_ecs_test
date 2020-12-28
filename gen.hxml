@@ -1,0 +1,7 @@
+-cp src
+-lib heaps
+-lib hlsdl
+-lib polygonal-ds
+-hl bin/main.c
+-main Main
+-debug
