@@ -1,0 +1,11 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Gen VS Studio SLN",
+            "type": "shell",
+            "command": "haxe agen.hxml",
+            "problemMatcher": []
+        }
+    ]
+  }

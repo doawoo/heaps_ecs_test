@@ -46,4 +46,14 @@ class World {
     public function getBitVectorLen():Int {
         return componentClasses.length;
     }
+
+    public function getBitIndexForComponent(find:Class<Component>):Int {
+        var index = componentClasses.indexOf(find);
+        if (index < 0) {
+            logger.error('The component of type "$find" does not exist in this world! Bit index will be 0!');
+            return 0;
+        }
+
+        return index;
+    }
 }
