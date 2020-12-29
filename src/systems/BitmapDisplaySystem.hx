@@ -1,5 +1,6 @@
 package systems;
 
+import hook.Entity;
 import components.BitmapComponent;
 
 import hook.System;
@@ -16,5 +17,9 @@ class BitmapDisplaySystem extends System {
             // Requires the entity has none of these component types
         ]
         );
+    }
+
+    public override function processEntity(entity:Entity) {
+        super.processEntity(entity);
     }
 }
