@@ -22,4 +22,18 @@ class BitmapDisplaySystem extends System {
     public override function processEntity(entity:Entity) {
         super.processEntity(entity);
     }
+    
+    public override function onEntityAddedToWorld(ent:Entity) {
+        // Base behaviour from super class
+        if (!wantsEntity(ent)) {
+            return;
+        }
+
+        entities.push(ent);
+
+        // Add the bitmap from the entity to the world
+        world.getScene().addChild(
+            ent.getComponent(BitmapComponent)
+        )
+    }
 }

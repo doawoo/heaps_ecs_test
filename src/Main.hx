@@ -31,6 +31,11 @@ class Main extends hxd.App {
         world.init();
     }
 
+    private override function update(dt:Float) {
+        world.update(dt);
+        super.update(dt);
+    }
+
     static function main() {
         new Main();
     }

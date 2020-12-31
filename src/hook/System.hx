@@ -11,6 +11,7 @@ class System {
     private var conditionsHas:BitVector;
     private var conditionsHasNoneOf:BitVector;
 
+    private var name:String = "";
     private var enabled:Bool = true;
 
     private var world:World;
@@ -19,10 +20,23 @@ class System {
 
     public function new(name:String, world:World, has:Array<Class<Component>>, noneOf:Array<Class<Component>>) {
         logger = new Logger(name);
+        this.name = name;
         this.world = world;
         this.conditionsHas = new BitVector(world.getBitVectorLen());
         this.conditionsHasNoneOf = new BitVector(world.getBitVectorLen());
         this.entities = new Array<Entity>();
+    }
+
+    public function isEnabled():Bool {
+        return enabled;
+    }
+
+    public function getName():String {
+        return name;
+    }
+
+    public function getWorld():World {
+        return world;
     }
 
     ////
@@ -58,7 +72,7 @@ class System {
         // STUB
     }
 
-    public function process(deltaTime:Float) {
+    public function process(deltaTime:Float):Void {
         if (!enabled) {
             return;
         }
