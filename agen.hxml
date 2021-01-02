@@ -3,5 +3,6 @@
 -lib hlsdl
 -lib polygonal-ds
 -hl bin/main.c
+-D resourcePath=res
 -main Main
 -debug

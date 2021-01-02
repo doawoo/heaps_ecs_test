@@ -89,14 +89,14 @@ class System {
         for (i in 0...world.getBitVectorLen()) {
             if (conditionsHas.has(i) && !entVector.has(i)) {
                 return false;
-            } 
+            }
         }
 
         // ensure none of the components we do not want are missing from the ent
         for (i in 0...world.getBitVectorLen()) {
             if (conditionsHasNoneOf.has(i) && entVector.has(i)) {
                 return false;
-            } 
+            }
         }
 
         // All conditions passed, system wants this entity

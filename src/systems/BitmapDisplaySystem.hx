@@ -1,5 +1,6 @@
 package systems;
 
+import components.TransformComponent;
 import hook.Entity;
 import components.BitmapComponent;
 
@@ -11,7 +12,8 @@ class BitmapDisplaySystem extends System {
         super("BitmapDisplaySystem", world,
         [
             // Required the entity has all these component types
-            BitmapComponent
+            BitmapComponent,
+            TransformComponent,
         ], 
         [
             // Requires the entity has none of these component types
@@ -30,10 +32,15 @@ class BitmapDisplaySystem extends System {
         }
 
         entities.push(ent);
+        var bitmapComps = ent.getComponents(BitmapComponent);
+        var transformComp:TransformComponent = cast ent.getComponents(TransformComponent)[0];
 
-        // Add the bitmap from the entity to the world
-        world.getScene().addChild(
-            ent.getComponent(BitmapComponent)
-        )
+        for (comp in bitmapComps) {
+            var b:BitmapComponent = cast comp;
+            b.setPosition(transformComp.getLocation());
+            getWorld().getScene().addChild(
+                b.getUnderlyingBitmap()
+            );
+        }
     }
 }

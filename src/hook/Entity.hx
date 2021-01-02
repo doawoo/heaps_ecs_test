@@ -32,4 +32,8 @@ class Entity {
     public function getBitVector():BitVector {
         return compVector;
     }
+
+    public function getComponents(compClass:Class<Component>):Array<Component> {
+        return components.filter(comp -> Type.getClass(comp) == compClass);
+    }
 }
