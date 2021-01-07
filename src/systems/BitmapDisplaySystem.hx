@@ -21,8 +21,31 @@ class BitmapDisplaySystem extends System {
         );
     }
 
-    public override function processEntity(entity:Entity) {
-        super.processEntity(entity);
+    public override function processEntity(entity:Entity, dt:Float) {
+        super.processEntity(entity, dt);
+
+        var bitmapComps = entity.getComponents(BitmapComponent);
+        var transformComp = entity.getComponents(TransformComponent)[0];
+
+        for (comp in bitmapComps) {
+            if (!comp.isDirty() && !transformComp.isDirty()) {
+                continue;
+            }
+
+            var b:BitmapComponent = cast comp;
+            var t:TransformComponent = cast transformComp;
+            var calcLocation = t.getLocation().add(b.getOffset());
+
+            var calcScaleX = b.getScale().x * t.getScale().x;
+            var calcScaleY = b.getScale().y * t.getScale().y;
+            
+            b.setRotation(t.getRotationRad());
+            b.setWorldPosition(calcLocation);
+            b.setWorldScaleXY(calcScaleX, calcScaleY);
+            b.makeClean();
+        }
+
+        transformComp.makeClean();
     }
     
     public override function onEntityAddedToWorld(ent:Entity) {
@@ -37,7 +60,13 @@ class BitmapDisplaySystem extends System {
 
         for (comp in bitmapComps) {
             var b:BitmapComponent = cast comp;
-            b.setPosition(transformComp.getLocation());
+            var calcLocation = transformComp.getLocation().add(b.getOffset());
+
+            var calcScaleX = b.getScale().x * transformComp.getScale().x;
+            var calcScaleY = b.getScale().y * transformComp.getScale().y;
+            
+            b.setWorldPosition(calcLocation);
+            b.setWorldScaleXY(calcScaleX, calcScaleY);
             getWorld().getScene().addChild(
                 b.getUnderlyingBitmap()
             );

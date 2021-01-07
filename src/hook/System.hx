@@ -67,7 +67,7 @@ class System {
         entities.remove(ent);
     }
 
-    public function processEntity(entity:Entity):Void {
+    public function processEntity(entity:Entity, dt:Float):Void {
         // Called for each entity this system cares about
         // STUB
     }
@@ -78,7 +78,7 @@ class System {
         }
 
         for (ent in entities) {
-            processEntity(ent);
+            processEntity(ent, deltaTime);
         }
     }
 

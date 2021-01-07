@@ -1,3 +1,5 @@
+import systems.SpeenSystem;
+import components.SpeenComponent;
 import h2d.Tile;
 import components.TransformComponent;
 import hook.Entity;
@@ -27,10 +29,12 @@ class Main extends hxd.App {
             // Register components with the world here
             BitmapComponent,
             TransformComponent,
+            SpeenComponent,
         ], 
         [
             // Register systems with the world
             BitmapDisplaySystem,
+            SpeenSystem,
         ],
         "test-world", scene, this);
 
@@ -49,6 +53,12 @@ class Main extends hxd.App {
             // Create entity with bitmap and transform components
             ent.addComponent(TransformComponent, [100, 100]);
             ent.addComponent(BitmapComponent, [logo]);
+            ent.addComponent(SpeenComponent, [5]);
+
+            var bitmapComp:BitmapComponent = cast ent.getComponents(BitmapComponent)[0];
+            var transformComp:TransformComponent = cast ent.getComponents(TransformComponent)[0];
+
+            transformComp.setScale(1, 1.25);
 
             // Add it to the world
             world.addEntity(ent);
